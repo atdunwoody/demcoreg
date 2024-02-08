@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+
 """
 Utility to automate reference surface identification for raster co-registration
 

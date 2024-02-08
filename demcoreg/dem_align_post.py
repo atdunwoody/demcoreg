@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+
 
 #Create plot of dem_align results for many input files
 

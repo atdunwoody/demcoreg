@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+
 
 """
 Library of functions that can be used for co-registration of raster data

@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+
 
 """
 Compute difference between two rasters

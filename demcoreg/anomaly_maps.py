@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+
 
 """
 Create anomaly map time series

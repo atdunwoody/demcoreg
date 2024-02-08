@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+
 
 #David Shean
 #dshean@gmail.com

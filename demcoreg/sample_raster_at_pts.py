@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+
 
 """
 Utility to sample input raster for a set of input xyz points and print statistics

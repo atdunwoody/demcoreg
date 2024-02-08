@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+
 
 #Todo
 #Better outlier removal

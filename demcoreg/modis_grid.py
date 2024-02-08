@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+
 
 #This is dictionary containing modis tile names and bounding boxes in Wkt lat/lon
 #Used to identify tiles that intersect another geom

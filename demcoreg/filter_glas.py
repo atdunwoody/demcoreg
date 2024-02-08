@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+
 
 #Filter preprocessed ICESat-1 GLAS points for a given input raster
 
