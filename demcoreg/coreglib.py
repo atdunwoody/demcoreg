@@ -302,8 +302,9 @@ def compute_offset_nuth(dh, slope, aspect, min_count=100, remove_outliers=True, 
 
         print("Computing fit")
         #Unweighted fit
+        print("Unweighted fit")
         fit = optimization.curve_fit(nuth_func, bin_centers, bin_med, x0)[0]
-
+        print("Fit parameters")
         #Weight by observed spread in each bin 
         #sigma = bin_mad
         #fit = optimization.curve_fit(nuth_func, bin_centers, bin_med, x0, sigma, absolute_sigma=True)[0]
@@ -372,16 +373,6 @@ def compute_offset_nuth(dh, slope, aspect, min_count=100, remove_outliers=True, 
 
     return fit, fit_fig
 
-#Attempt to fit polynomial functions to along-track and cross-track signals
-#See demtools for existing code
-def fit_at_ct():
-    #Derive from image corners in projected array
-    #Use known orbintal inclinations, project wgs geometry into srs
-    img1_inc
-    img2_inc
-    #Rotate
-    #Stats for rows, cols
-    #Fit
 
 #Function copied from from openPIV pyprocess
 def find_first_peak(corr):
@@ -601,7 +592,7 @@ def plot_ct_at_dh_map(ax, dh_init, clim_dh, ct_correction_surface, at_correction
     dh_final: np.ma.array
         final dh map (after correction applied)
     """
-    from imview import pltlib
+    from GIStools.tif_lib.pygeo_lib.pltlib import pltlib
     pltlib.iv(dh_init, cmap='RdBu', clim=clim_dh, label='Elevation difference (m)', title='dh before', ax=ax[0])
     pltlib.add_scalebar(ax=ax[0], res=1)
     #across_track_clim = malib.calcperc_sym(ct_correction_surface,(2,98))
