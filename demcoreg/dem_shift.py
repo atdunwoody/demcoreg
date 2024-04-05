@@ -3,7 +3,7 @@ from osgeo import gdal
 from pygeotools.lib import iolib, warplib, geolib
 import coreglib 
 
-def shift_dem(src_dem_fn, outdir, shift):
+def dem_shift(src_dem_fn, outdir, shift):
     """
     Shifts a Digital Elevation Model (DEM) by a specified amount in the x, y, and z directions using pygeotools library functions.
     Parameters:
