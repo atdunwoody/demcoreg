@@ -9,15 +9,15 @@ import sys
 from pygeotools.lib import iolib, malib, geolib, warplib, filtlib
 
 
-def get_dem_shift(ref_dem_fn, src_dem_fn, outdir, mode ='nuth', res ='max', **kwargs):
+def get_dem_shift(**kwargs):
     #parser = getparser()
     #args = parser.parse_args()
 
-    ref_dem_fn = ref_dem_fn
-    src_dem_fn = src_dem_fn
-    outdir = outdir
-    mode = mode
-    res = res
+    ref_dem_fn = kwargs.get('ref_dem_fn', None)
+    src_dem_fn =  kwargs.get('src_dem_fn', None)
+    outdir = kwargs.get('outdir', None)
+    mode = kwargs.get('mode', 'nuth')
+    res = kwargs.get('res', 'max')
     mask_list = kwargs.get('mask_list', [])
     max_offset = kwargs.get('max_offset', 100)
     max_dz = kwargs.get('max_dz', 100)
