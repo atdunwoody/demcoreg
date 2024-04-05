@@ -9,7 +9,7 @@ import sys
 from pygeotools.lib import iolib, malib, geolib, warplib, filtlib
 
 
-def get_shift(ref_dem_fn, src_dem_fn, outdir, mode ='nuth', res ='max', **kwargs):
+def get_dem_shift(ref_dem_fn, src_dem_fn, outdir, mode ='nuth', res ='max', **kwargs):
     #parser = getparser()
     #args = parser.parse_args()
 
@@ -255,7 +255,7 @@ def get_shift(ref_dem_fn, src_dem_fn, outdir, mode ='nuth', res ='max', **kwargs
     iolib.writeGTiff(src_dem_full_align, align_fn, src_dem_ds_align)
     return align_fn, [dx_total, dy_total, dz_total] 
 
-def dem_shift(src_dem_fn, outdir, shift):
+def apply_dem_shift(src_dem_fn, outdir, shift):
     """
     Shifts a Digital Elevation Model (DEM) by a specified amount in the x, y, and z directions using pygeotools library functions.
     Parameters:
