@@ -248,7 +248,8 @@ def dem_align(ref_dem_fn, src_dem_fn, outdir, mode ='nuth', res ='max', **kwargs
     print("Source: %s" % src_dem_fn)
     print("Mode: %s" % mode)
     print("Output: %s\n" % outprefix)
-
+    results_dict = {}
+    
     src_dem_ds = gdal.Open(src_dem_fn)
     ref_dem_ds = gdal.Open(ref_dem_fn)
 
@@ -1054,5 +1055,13 @@ def main(argv=None):
         print("Writing out figure: %s" % fig_fn)
         f.savefig(fig_fn, dpi=300)
 
+    results_dict = {}
+    results_dict['align_fn'] = align_fn
+    results_dict['align_fn_masked'] = align_fn_masked
+    results_dict['align_diff_fn'] = align_diff_fn
+    results_dict['align_diff_filt_fn'] = align_diff_filt_fn
+    results_dict['align_stats_fn'] = align_stats_fn
+    results_dict['shift'] = [dx_total, dy_total, dz_total]
+    return results_dict
 if __name__ == "__main__":
     main()
