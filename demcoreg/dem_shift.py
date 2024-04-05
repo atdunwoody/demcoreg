@@ -1,7 +1,7 @@
 import os
 from osgeo import gdal
 from pygeotools.lib import iolib, warplib, geolib
-import coreglib 
+from demcoreg import coreglib 
 
 def dem_shift(src_dem_fn, outdir, shift):
     """
