@@ -207,8 +207,8 @@ def dem_align(**kwargs):
     parser = getparser()
     args = parser.parse_args()
 
-    ref_dem_fn = kwargs.get('ref_fn', args.ref_fn)
-    src_dem_fn = kwargs.get('src_fn', args.src_fn)
+    ref_dem_fn = kwargs.get('ref_dem_fn', args.ref_fn)
+    src_dem_fn = kwargs.get('src_dem_fn', args.src_fn)
     outdir = kwargs.get('outdir', args.outdir)
     mode = kwargs.get('mode', args.mode)
     res = kwargs.get('res', args.res)
