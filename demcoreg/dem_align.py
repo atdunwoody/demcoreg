@@ -203,15 +203,15 @@ def getparser():
     return parser
 
 
-def dem_align(ref_dem_fn, src_dem_fn, outdir, mode ='nuth', res ='max', **kwargs):
+def dem_align(**kwargs):
     parser = getparser()
     args = parser.parse_args()
 
-    ref_dem_fn = ref_dem_fn
-    src_dem_fn = src_dem_fn
-    outdir = outdir
-    mode = mode
-    res = res
+    ref_dem_fn = kwargs.get('ref_fn', args.ref_fn)
+    src_dem_fn = kwargs.get('src_fn', args.src_fn)
+    outdir = kwargs.get('outdir', args.outdir)
+    mode = kwargs.get('mode', args.mode)
+    res = kwargs.get('res', args.res)
     mask_list = kwargs.get('mask_list', [])
     max_offset = kwargs.get('max_offset', 100)
     max_dz = kwargs.get('max_dz', 100)
