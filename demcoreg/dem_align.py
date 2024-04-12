@@ -626,7 +626,13 @@ def dem_align(**kwargs):
         fig_fn = outprefix + '%s_align.png' % xyz_shift_str_cum_fn
         print("Writing out figure: %s" % fig_fn)
         f.savefig(fig_fn, dpi=300)
-    return align_fn, [dx_total, dy_total, dz_total] 
+    
+    results_dict['align_fn'] = align_fn
+    results_dict['align_stats_fn'] = align_stats_fn
+    results_dict['Iterations'] = n
+    results_dict['shift'] = [dx_total, dy_total, dz_total]
+    results_dict['Resolutions'] = {'src':src_dem_res, 'ref':ref_dem_res, 'coreg':res}
+    return results_dict, align_stats
 
 def main(argv=None):
     parser = getparser()
