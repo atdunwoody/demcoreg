@@ -62,14 +62,14 @@ def get_filtered_slope(ds, slope_lim=(0.1, 40)):
     return slope
 
 def compute_offset(ref_dem_ds, src_dem_ds, src_dem_fn, mode='nuth', remove_outliers=True, max_offset=100, \
-        max_dz=100, slope_lim=(0.1, 40), mask_list=['glaciers',], plot=True):
+        resampling_method = 'bilinear', max_dz=100, slope_lim=(0.1, 40), mask_list=['glaciers',], plot=True):
     #Make sure the input datasets have the same resolution/extent
     #Use projection of source DEM
     print(f"Max of src_dem_ds: {src_dem_ds.GetRasterBand(1).ReadAsArray().max()}")
     dem = np.ma.masked_invalid(src_dem_ds.GetRasterBand(1).ReadAsArray())
     print(f"Max of dem: {dem.max()}")
     ref_dem_clip_ds, src_dem_clip_ds = warplib.memwarp_multi([ref_dem_ds, src_dem_ds], \
-            res='max', extent='intersection', t_srs=src_dem_ds, r='cubic')
+            res='max', extent='intersection', t_srs=src_dem_ds, r=resampling_method)
     print(f"Max of src_dem_clip_ds: {src_dem_clip_ds.GetRasterBand(1).ReadAsArray().max()}")
     #Compute size of NCC and SAD search window in pixels
     res = float(geolib.get_res(ref_dem_clip_ds, square=True)[0])
@@ -217,6 +217,7 @@ def dem_align(**kwargs):
     outdir = kwargs.get('outdir', args.outdir)
     mode = kwargs.get('mode', args.mode)
     res = kwargs.get('res', args.res)
+    resampling_method = kwargs.get('resampling_method', 'bilinear')
     mask_list = kwargs.get('mask_list', [])
     max_offset = kwargs.get('max_offset', 100)
     max_dz = kwargs.get('max_dz', 100)
@@ -321,7 +322,7 @@ def dem_align(**kwargs):
     while True:
         print("*** Iteration %i ***" % n)
         dx, dy, dz, static_mask, fig = compute_offset(ref_dem_ds, src_dem_ds_align, src_dem_fn, mode, max_offset, \
-                mask_list=mask_list, max_dz=max_dz, slope_lim=slope_lim, plot=True)
+                resampling_method=resampling_method, mask_list=mask_list, max_dz=max_dz, slope_lim=slope_lim, plot=True)
         xyz_shift_str_iter = "dx=%+0.2fm, dy=%+0.2fm, dz=%+0.2fm" % (dx, dy, dz)
         print("Incremental offset: %s" % xyz_shift_str_iter)
 
@@ -371,7 +372,7 @@ def dem_align(**kwargs):
             #Compute final elevation difference
             if True:
                 ref_dem_clip_ds_align, src_dem_clip_ds_align = warplib.memwarp_multi([ref_dem_ds, src_dem_ds_align], \
-                        res=res, extent='intersection', t_srs=local_srs, r='cubic')
+                        res=res, extent='intersection', t_srs=local_srs, r=resampling_method)
                 ref_dem_align = iolib.ds_getma(ref_dem_clip_ds_align, 1)
                 src_dem_align = iolib.ds_getma(src_dem_clip_ds_align, 1)
                 ref_dem_clip_ds_align = None
@@ -508,7 +509,7 @@ def dem_align(**kwargs):
     #Compute original elevation difference
     if True:
         ref_dem_clip_ds, src_dem_clip_ds = warplib.memwarp_multi([ref_dem_ds, src_dem_ds], \
-                res=res, extent='intersection', t_srs=local_srs, r='cubic')
+                res=res, extent='intersection', t_srs=local_srs, r=resampling_method)
         src_dem_ds = None
         ref_dem_ds = None
         ref_dem_orig = iolib.ds_getma(ref_dem_clip_ds)
