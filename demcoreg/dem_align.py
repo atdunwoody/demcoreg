@@ -302,13 +302,13 @@ def dem_align(**kwargs):
     src_dem_ds = None
     #Resample to user-specified resolution
     ref_dem_ds, src_dem_ds_align = warplib.memwarp_multi([ref_dem_ds, src_dem_ds_align], \
-            extent='intersection', res=args.res, t_srs=local_srs, r='cubic')
+            extent='intersection', res=res, t_srs=local_srs, r='bilinear')
     ref_dem_ds_res = float(geolib.get_res(ref_dem_ds, square=True)[0])
     print(f"ref_dem_ds resolution: {ref_dem_ds_res}")
     res = float(geolib.get_res(src_dem_ds_align, square=True)[0])
     print("\nReference DEM res: %0.2f" % ref_dem_res)
     print("Source DEM res: %0.2f" % src_dem_res)
-    print("Resolution for coreg: %s (%0.2f m)\n" % (args.res, res))
+    print("Resolution for coreg: %s (%0.2f m)\n" % (res))
 
     #Iteration number
     n = 1
