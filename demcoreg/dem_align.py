@@ -38,11 +38,13 @@ def outlier_filter(diff, f=3, perc=None, max_dz=100):
     #Absolute dz filter
     diff = np.ma.masked_greater(diff, max_dz)
     print(diff.count())
-
+    
     if perc is not None:
+        print("Percentile filter: %0.2f - %0.2f" % perc)
         diff = filtlib.perc_fltr(diff, perc)
     else:
         #diff = filtlib.sigma_fltr(diff, f)
+        print("MAD filter: %0.2f" % f)
         diff = filtlib.mad_fltr(diff, f)
 
     print(diff.count())
@@ -297,7 +299,8 @@ def dem_align(**kwargs):
     #Resample to user-specified resolution
     ref_dem_ds, src_dem_ds_align = warplib.memwarp_multi([ref_dem_ds, src_dem_ds_align], \
             extent='intersection', res=args.res, t_srs=local_srs, r='cubic')
-
+    ref_dem_ds_res = float(geolib.get_res(ref_dem_ds, square=True)[0])
+    print(f"ref_dem_ds resolution: {ref_dem_ds_res}")
     res = float(geolib.get_res(src_dem_ds_align, square=True)[0])
     print("\nReference DEM res: %0.2f" % ref_dem_res)
     print("Source DEM res: %0.2f" % src_dem_res)
