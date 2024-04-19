@@ -308,7 +308,7 @@ def dem_align(**kwargs):
     res = float(geolib.get_res(src_dem_ds_align, square=True)[0])
     print("\nReference DEM res: %0.2f" % ref_dem_res)
     print("Source DEM res: %0.2f" % src_dem_res)
-    print("Resolution for coreg: %s (%0.2f m)\n" % (res))
+    print("Resolution for coreg: %s (%0.2f m)\n" % (kwargs.get('res', args.res), res))
 
     #Iteration number
     n = 1
