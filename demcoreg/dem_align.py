@@ -65,9 +65,12 @@ def compute_offset(ref_dem_ds, src_dem_ds, src_dem_fn, mode='nuth', remove_outli
         max_dz=100, slope_lim=(0.1, 40), mask_list=['glaciers',], plot=True):
     #Make sure the input datasets have the same resolution/extent
     #Use projection of source DEM
+    print(f"Max of src_dem_ds: {src_dem_ds.GetRasterBand(1).ReadAsArray().max()}")
+    dem = np.ma.masked_invalid(src_dem_ds.GetRasterBand(1).ReadAsArray())
+    print(f"Max of dem: {dem.max()}")
     ref_dem_clip_ds, src_dem_clip_ds = warplib.memwarp_multi([ref_dem_ds, src_dem_ds], \
             res='max', extent='intersection', t_srs=src_dem_ds, r='cubic')
-
+    print(f"Max of src_dem_clip_ds: {src_dem_clip_ds.GetRasterBand(1).ReadAsArray().max()}")
     #Compute size of NCC and SAD search window in pixels
     res = float(geolib.get_res(ref_dem_clip_ds, square=True)[0])
     max_offset_px = (max_offset/res) + 1
@@ -80,11 +83,8 @@ def compute_offset(ref_dem_ds, src_dem_ds, src_dem_fn, mode='nuth', remove_outli
     #Load the arrays
     ref_dem = iolib.ds_getma(ref_dem_clip_ds, 1)
     src_dem = iolib.ds_getma(src_dem_clip_ds, 1)
-    src_dem = np.ma.masked_invalid(src_dem)
-    print("Elevation stats for source DEM")
-    print(f"Max: {src_dem.max()}")
-    print(f"Min: {src_dem.min()}")
-    print("Elevation difference stats for uncorrected input DEMs (src - ref)")
+    print(f"Max of src_dem: {src_dem.max()}")
+    print(f"Min of src_dem: {src_dem.min()}")
     diff = src_dem - ref_dem
 
     static_mask = get_mask(src_dem_clip_ds, mask_list, src_dem_fn)
@@ -657,7 +657,7 @@ def main(argv=None):
     tiltcorr = args.tiltcorr
     polyorder = args.polyorder
     res = args.res
-
+    print(f"res: {res}")
     #Maximum number of iterations
     max_iter = args.max_iter
 
