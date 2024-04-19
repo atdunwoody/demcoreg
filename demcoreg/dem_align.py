@@ -80,7 +80,10 @@ def compute_offset(ref_dem_ds, src_dem_ds, src_dem_fn, mode='nuth', remove_outli
     #Load the arrays
     ref_dem = iolib.ds_getma(ref_dem_clip_ds, 1)
     src_dem = iolib.ds_getma(src_dem_clip_ds, 1)
-
+    src_dem = np.ma.masked_invalid(src_dem)
+    print("Elevation stats for source DEM")
+    print(f"Max: {src_dem.max()}")
+    print(f"Min: {src_dem.min()}")
     print("Elevation difference stats for uncorrected input DEMs (src - ref)")
     diff = src_dem - ref_dem
 
@@ -254,6 +257,7 @@ def dem_align(**kwargs):
     
     src_dem_ds = gdal.Open(src_dem_fn)
     ref_dem_ds = gdal.Open(ref_dem_fn)
+
 
     #Define local cartesian coordinate system  
     #Should compute equidistant projection based on clon,clat and extent
