@@ -223,7 +223,7 @@ def dem_align(**kwargs):
     slope_lim = kwargs.get('slope_lim', (0.1, 40))
     tiltcorr = kwargs.get('tiltcorr', False)
     polyorder = kwargs.get('polyorder', 1)
-    
+    print(f"res: {res}")
     max_iter = kwargs.get('max_iter', 30)
     tol = kwargs.get('tol', 0.02)
 
@@ -657,7 +657,7 @@ def main(argv=None):
     tiltcorr = args.tiltcorr
     polyorder = args.polyorder
     res = args.res
-    print(f"res: {res}")
+    
     #Maximum number of iterations
     max_iter = args.max_iter
 
